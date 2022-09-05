@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]
+then
+	echo "Usage : ./dhcp_off.bash <interface> or ./dhcp_off <on/off of NetworkManager>"
+else
+	dhclient -r $1
+fi
+
+if [ "$1" = "on" ]
+then
+	echo "NetWorkManager.service start"
+	systemctl start NetworkManager.service
+elif [ "$1" = "off" ]
+then
+	echo "NetworkManager.service stop"
+	systemctl stop NetworkManager.service
+else
+	echo "Bye"
+fi

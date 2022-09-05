@@ -1,0 +1,15 @@
+#!/bin/bash
+
+scp *sh *py fl:~
+scp *sh *py fr:~
+scp *sh *py rl:~
+scp *sh *py rr:~
+scp *sh *py vcom:~
+
+#scp dhcp_handler.sh hfl:~
+#scp dhcp_handler.sh hfr:~
+#scp reset_tc.py fl:~
+#scp reset_tc.py fr:~
+#scp reset_tc.py rl:~
+#scp reset_tc.py rr:~
+#scp reset_tc.py vcom:~
