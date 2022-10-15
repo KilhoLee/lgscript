@@ -11,8 +11,8 @@ ETHPREFIX="enx"
 conmode='inband'    # 'inband' or 'outband'
 CONIPADDR="10.0.0.55"
 #CONIPADDR="192.168.5.155"
-#queuemode = 'noq'   # 'noq', 'htb', or 'prio'
-queuemode = 'htb'   # 'noq', 'htb', or 'prio'
+queuemode = 'noq'   # 'noq', 'htb', or 'prio'
+#queuemode = 'htb'   # 'noq', 'htb', or 'prio'
 
 htbrates = [70,20,1,1,1,1,1,1]  # HTB will have 8 sub-queues. 
 
@@ -83,6 +83,15 @@ elif queuemode == 'htb':
             for i in range(8):
                 cmdstring = '/sbin/tc class add dev %s parent 1:1 classid 1:%d htb rate %dMbit ceil %dMbit prio %d' % (iname, i+2, htbrates[i], CEIL, i)
                 cmd.append(cmdstring)
+
+elif queuemode == 'noq':
+    cmd = []
+    for iface in sorted(ifaces):
+        if ETHPREFIX in iface:
+            iname = iface.rstrip('\n')
+            cmdstring = '/sbin/tc qdisc show dev %s ' % iname
+            cmd.append (cmdstring)
+    cmd.append ('echo "NO TC QDISC SET"')
 
 # Remove all Queues 
 else:

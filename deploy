@@ -8,8 +8,8 @@ scp *sh *py vcom:~
 
 #scp dhcp_handler.sh hfl:~
 #scp dhcp_handler.sh hfr:~
-#scp reset_tc.py fl:~
-#scp reset_tc.py fr:~
-#scp reset_tc.py rl:~
-#scp reset_tc.py rr:~
-#scp reset_tc.py vcom:~
+#scp run_ovs.sh fl:~
+#scp run_ovs.sh fr:~
+#scp run_ovs.sh rl:~
+#scp run_ovs.sh rr:~
+#scp run_ovs.sh vcom:~
