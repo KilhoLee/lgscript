@@ -1,10 +1,10 @@
 #!/bin/bash
 
-scp *sh *py fl:~
-scp *sh *py fr:~
-scp *sh *py rl:~
-scp *sh *py rr:~
-scp *sh *py vcom:~
+#scp *sh *py fl:~
+#scp *sh *py fr:~
+#scp *sh *py rl:~
+#scp *sh *py rr:~
+#scp *sh *py vcom:~
 
 #scp dhcp_handler.sh hfl:~
 #scp dhcp_handler.sh hfr:~
@@ -13,3 +13,9 @@ scp *sh *py vcom:~
 #scp run_ovs.sh rl:~
 #scp run_ovs.sh rr:~
 #scp run_ovs.sh vcom:~
+
+scp zone_inband.yaml fl:~
+scp zone_inband.yaml fr:~
+scp zone_inband.yaml rl:~
+scp zone_inband.yaml rr:~
+scp zone_inband.yaml vcom:~

@@ -10,9 +10,11 @@
 #sudo make install
 #sudo make modules_install
 
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
 # init ovs
-sudo rm /usr/local/etc/openvswitch/conf.db
-sudo ovsdb-tool create /usr/local/etc/openvswitch/conf.db ~/ovs/vswitchd/vswitch.ovsschema
+rm /usr/local/etc/openvswitch/conf.db
+ovsdb-tool create /usr/local/etc/openvswitch/conf.db ~/ovs/vswitchd/vswitch.ovsschema
 
 # In order to discard previous setup. #####
 ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
@@ -33,15 +35,15 @@ echo 'OVS_SETUP_CLEARED'
 # Load kernel module
 modprobe openvswitch
 # Run vswitchd
-sudo ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
+ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock \
                   --remote=db:Open_vSwitch,Open_vSwitch,manager_options \
                   --remote=ptcp:6640 \
                   --private-key=db:Open_vSwitch,SSL,private_key \
                   --certificate=db:Open_vSwitch,SSL,certificate \
                   --bootstrap-ca-cert=db:Open_vSwitch,SSL,ca_cert \
                   --pidfile --detach --log-file
-sudo ovs-vsctl --no-wait init
-sudo ovs-vswitchd --pidfile --detach --log-file
+ovs-vsctl --no-wait init
+ovs-vswitchd --pidfile --detach --log-file
 
 echo 'OVS_LOADED'
 
