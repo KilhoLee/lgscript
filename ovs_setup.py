@@ -8,9 +8,9 @@ import os
 CONETH = "enx001e06"
 ETHPREFIX="enx"
 
-conmode='inband'    # 'inband' or 'outband'
-CONIPADDR="10.0.0.55"
-#CONIPADDR="192.168.5.155"
+conmode='outband'    # 'inband' or 'outband'
+#CONIPADDR="10.0.0.55"
+CONIPADDR="192.168.5.45"
 queuemode = 'noq'   # 'noq', 'htb', or 'prio'
 #queuemode = 'htb'   # 'noq', 'htb', or 'prio'
 
@@ -46,11 +46,13 @@ for iface in sorted(ifaces):
 if conmode=='inband':
     print ("CONTROL MODE = INBAND, STATIC ARP TABLE UPDATED")
     cmd.append ('ovs-vsctl set bridge br0 other-config=disable-in-band=false')
-    cmd.append ('ovs-vsctl set bridge br0 other-config:hwaddr=%s:%d' % (BR_MACPREFIX, MYID))
-    cmd.append ('ifconfig br0 inet %s.%d' % (BR_ADDRPRFIX, MYID))
-    cmd.append ('bash /root/static_arp.sh')
-    cmd.append ('sleep 1')
+elif conmode=='outband':
+    print ("CONTROL MODE = OUT-OF-BAND, STATIC ARP TABLE UPDATED")
 
+cmd.append ('ovs-vsctl set bridge br0 other-config:hwaddr=%s:%d' % (BR_MACPREFIX, MYID))
+cmd.append ('ifconfig br0 inet %s.%d' % (BR_ADDRPRFIX, MYID))
+cmd.append ('bash /root/static_arp.sh')
+cmd.append ('sleep 1')
 cmd.append ('ovs-vsctl set-controller br0 tcp:%s:%s' % (CONIPADDR, CONPORT) )
 
 #Apply cmds
